@@ -16,36 +16,55 @@
         </div>
       </div>
     </div>
-    <Player class="player"/>
+    <player v-show="isShowPlayer" class="player"/>
+    <mini-player v-show="!isShowPlayer" @click.native="togglePlayer" class="mini-player" />
   </div>
 </template>
 
 <script>
   // @ is an alias to /src
   import Player from '@/components/Player.vue';
+  import MiniPlayer from '@/components/MiniPlayer.vue';
   import { request } from '../utils/request';
 
   export default {
     name: 'home',
     components: {
-      Player
+      Player,
+      MiniPlayer
     },
     data() {
       return {
-        musicList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        musicList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        isShowPlayer: false
       };
     },
     created() {
       request('GET', 'recommend', { page: 1 }).then(res => {
         console.log(res);
       });
+    },
+    methods: {
+      togglePlayer() {
+        this.isShowPlayer = !this.isShowPlayer;
+      }
     }
   };
 </script>
 
 <style scoped lang="less">
   .player {
-    display: none;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #323232
+  }
+  .mini-player{
+    position: fixed;
+    bottom: 0;
   }
 
   .music-list {
