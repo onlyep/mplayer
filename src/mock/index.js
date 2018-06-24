@@ -2984,7 +2984,7 @@ Mock.mock('http://localhost:8080/recommend?page=1', {
     ]
 })
 
-Mock.mock('http://localhost:8088/recommend?page=2', {
+Mock.mock('http://localhost:8080/recommend?page=2', {
     'code': 0,
     'meg': '',
     'data': [
@@ -4023,14 +4023,14 @@ Mock.mock('http://localhost:8088/recommend?page=2', {
     ]
 })
 
-Mock.mock('http://localhost:8088/recommend?page=3', {
+Mock.mock('http://localhost:8080/recommend?page=3', {
     'code': 0,
     'msg': '',
     'data': null
 })
 
 // banner
-Mock.mock('http://localhost:8088/banner', {
+Mock.mock('http://localhost:8080/banner', {
     'code': 0,
     'msg': '',
     'data': [
@@ -5364,7 +5364,7 @@ Mock.mock('http://localhost:8088/banner', {
 })
 
 // 相关推荐
-Mock.mock('http://localhost:8088/other', {
+Mock.mock('http://localhost:8080/other', {
     "code": 0,
     "msg": "",
     "data": [{

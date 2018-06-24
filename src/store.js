@@ -5,10 +5,28 @@ import { request } from './utils/request';
 Vue.use(Vuex);
 
 const state = {
-  listJson: {}
+  listJson: {},
+  playing: false,
+  currentAudio: '',
+  duration: 0,
+  percent: 0,
+  currentTime: 0
 };
 
-const mutations = {};
+const mutations = {
+  setCurrentAudio(state, audio) {
+    state.currentAudio = audio;
+  },
+  updateDuration(state, duration) {
+    state.duration = duration;
+  },
+  play(state) {
+    state.playing = true;
+  },
+  pause(state) {
+    state.playing = false;
+  }
+};
 
 const actions = {
   // 获取banner

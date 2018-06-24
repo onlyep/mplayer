@@ -8,10 +8,10 @@
           <span class="desc">买辣椒也用券-起风了（cover）</span>
         </div>
       </div>
-      <div class="item" v-for="(item, index) in musicList" :key="index">
+      <div class="item" v-for="(item, index) in playList" :key="index">
         <div class="play-state"><i class="icon play"></i></div>
         <div class="item-info">
-          <span class="title">起风了</span>
+          <span class="title">{{item.sound.name}}</span>
           <span class="desc">买辣椒也用券-起风了（cover）</span>
         </div>
       </div>
@@ -35,16 +35,20 @@
     },
     data() {
       return {
-        musicList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				playList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         isShowPlayer: false
       };
     },
     created() {
-      request('GET', 'recommend', { page: 1 }).then(res => {
-        console.log(res);
-      });
+			this.getPlayList();
     },
     methods: {
+			getPlayList() {
+				request('get', '/recommend', { page: 1 }).then(res => {
+					this.playList = res.data.slice();
+					console.log(this.playList);
+				});
+			},
       togglePlayer() {
         this.isShowPlayer = !this.isShowPlayer;
       }

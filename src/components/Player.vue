@@ -1,11 +1,20 @@
 <template>
   <div class="player-wrapper">
-    <audio src="//varbug.top/music/death.mp3"
-           ref="audioRef"
-           @timeupdate="timeupdate"></audio>
+    <div class="header-bar">
+      <i class="icon-down"></i>
+    </div>
+    <div class="cover-wrap active">
+      <div class="cover-box">
+        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000002iLNys07scIu.jpg?max_age=2592000" alt="">
+      </div>
+    </div>
     <div class="progress-wrap">
-      <div class="progress-bg"></div>
-      <div class="current-progress" ref="progressRef"></div>
+      <div class="current-time">00:00</div>
+      <div class="progress">
+        <div class="progress-bg"></div>
+        <div class="current-progress" ref="progressRef"></div>
+      </div>
+      <div class="total-time">04:00</div>
     </div>
     <div class="handle-btn-wrap">
       <div class="previous-btn"><i class="i-btn prev"></i></div>
@@ -26,7 +35,6 @@
     },
     mounted() {
       // this.$refs.audioRef.play();
-      console.log(this.$refs.progressRef);
     },
     watch: {
       playing(newVal) {
@@ -48,13 +56,52 @@
 
 <style scoped lang="less">
   .player-wrapper {
-    padding: 36px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
     background: #666;
+  }
+  .header-bar{
+    height: 36px;
+    .icon-down{
+      display: block;
+      width: 48px;
+      height: 36px;
+      background: url("./icon_down.png") no-repeat;
+      background-size: cover;
+    }
+  }
+  .cover-wrap{
+    padding: 42px 0;
+    .cover-box{
+      text-align: center;
+      img{
+        width: 80vw;
+        border-radius: 50%;
+      }
+    }
+    &.active{
+      img{
+        animation: rorating 12s linear infinite;
+      }
+    }
+  }
+  @keyframes rorating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .progress-wrap {
     width: 100%;
-    position: relative;
+    display: flex;
+    align-items: center;
+    .progress{
+      margin: 0 10px;
+      flex: 1;
+      position: relative;
+    }
     .progress-bg {
       height: 4px;
       border-radius: 4px;
@@ -85,31 +132,31 @@
   .handle-btn-wrap {
     margin-top: 28px;
     display: flex;
-    .previous-btn, .next-btn {
-      flex: 1;
-      display: flex;
-    }
+    justify-content: center;
     .previous-btn {
-      flex-direction: row-reverse;
     }
     .next-btn {
     }
     .play-btn {
-      flex: 0 0 100px;
-      display: flex;
-      color: yellow;
-      justify-content: center;
+      margin: 0 20px;
     }
     .i-btn {
       display: block;
-      width: 0;
-      height: 0;
-      border: 30px solid;
+      width: 44px;
+      height: 44px;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      &.play{
+        background-image: url("./icon_play.png");
+      }
+      &.pause{
+        background-image: url("./icon_pause.png");
+      }
       &.prev {
-        border-color: transparent yellow transparent transparent;
+        background-image: url("./icon_previous.png");
       }
       &.next {
-        border-color: transparent transparent transparent yellow;
+        background-image: url("./icon_next.png");
       }
     }
   }
