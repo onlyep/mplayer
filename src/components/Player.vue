@@ -1,7 +1,7 @@
 <template>
   <div class="player-wrapper">
     <div class="header-bar">
-      <i class="icon-down"></i>
+      <i class="icon-down" @click="miniPlay"></i>
     </div>
     <div class="cover-wrap active">
       <div class="cover-box">
@@ -42,6 +42,9 @@
       }
     },
     methods: {
+			miniPlay() {
+				this.$emit('togglePlayer');
+      },
       togglePlaying() {
         this.playing = !this.playing;
       },

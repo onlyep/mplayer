@@ -6,13 +6,15 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
-    <audio src="//varbug.top/music/death.mp3"
+    <audio id="audio" autoplay :src="audio.source"
            ref="audioRef"></audio>
   </div>
 </template>
 
 <script>
 	import { request } from './utils/request';
+	import { mapState, mapMutations } from 'vuex';
+	// varbug.top/music/death.mp3
 
 	export default {
 		data() {
@@ -23,7 +25,26 @@
 		created() {
 			this.getPlayList();
 		},
+		computed: {
+			...mapState(['audio']),
+			...mapState({
+				audio_data: state => state.audio.source
+			})
+		},
+		watch: {
+			audio_data(val) {
+				console.log(val);
+				this.audioInit();
+			}
+		},
 		methods: {
+			...mapMutations({
+				setAudioSource: 'setAudioSource'
+			}),
+			audioInit() {
+				let _audio = this.$el.querySelector('#audio');
+				console.log(_audio);
+			},
 			getPlayList() {
 				request('get', '/recommend', { page: 1 }).then(res => {
 					this.playList = res.data.slice();

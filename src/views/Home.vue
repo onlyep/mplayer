@@ -8,7 +8,7 @@
           <span class="desc">买辣椒也用券-起风了（cover）</span>
         </div>
       </div>
-      <div class="item" v-for="(item, index) in playList" :key="index">
+      <div class="item" v-for="(item, index) in playList" :key="index" @click="_play(item)">
         <div class="play-state"><i class="icon play"></i></div>
         <div class="item-info">
           <span class="title">{{item.sound.name}}</span>
@@ -16,44 +16,53 @@
         </div>
       </div>
     </div>
-    <player v-show="isShowPlayer" class="player"/>
-    <mini-player v-show="!isShowPlayer" @click.native="togglePlayer" class="mini-player" />
+    <transition name="fade">
+      <player v-show="isShowPlayer" @togglePlayer="togglePlayer" class="player"/>
+    </transition>
+    <mini-player v-show="!isShowPlayer" @click.native="togglePlayer" class="mini-player"/>
   </div>
 </template>
 
 <script>
-  // @ is an alias to /src
-  import Player from '@/components/Player.vue';
-  import MiniPlayer from '@/components/MiniPlayer.vue';
-  import { request } from '../utils/request';
+	// @ is an alias to /src
+	import Player from '@/components/Player.vue';
+	import MiniPlayer from '@/components/MiniPlayer.vue';
+	import { request } from '../utils/request';
+	import { mapMutations } from 'vuex';
 
-  export default {
-    name: 'home',
-    components: {
-      Player,
-      MiniPlayer
-    },
-    data() {
-      return {
-				playList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        isShowPlayer: false
-      };
-    },
-    created() {
+	export default {
+		name: 'home',
+		components: {
+			Player,
+			MiniPlayer
+		},
+		data() {
+			return {
+				playList: [],
+				isShowPlayer: false
+			};
+		},
+		created() {
 			this.getPlayList();
-    },
-    methods: {
+		},
+		methods: {
+			...mapMutations({
+				setAudioSource: 'setAudioSource'
+			}),
+			_play(song) {
+				let _song = song.sound;
+				this.setAudioSource(_song);
+			},
 			getPlayList() {
 				request('get', '/recommend', { page: 1 }).then(res => {
 					this.playList = res.data.slice();
-					console.log(this.playList);
 				});
 			},
-      togglePlayer() {
-        this.isShowPlayer = !this.isShowPlayer;
-      }
-    }
-  };
+			togglePlayer() {
+				this.isShowPlayer = !this.isShowPlayer;
+			}
+		}
+	};
 </script>
 
 <style scoped lang="less">
@@ -66,7 +75,14 @@
     bottom: 0;
     background: #323232
   }
-  .mini-player{
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+  .mini-player {
     position: fixed;
     bottom: 0;
   }
