@@ -25,8 +25,8 @@
 
 <script>
 	// @ is an alias to /src
-	import Player from '@/components/Player.vue';
-	import MiniPlayer from '@/components/MiniPlayer.vue';
+	import Player from '../components/Player';
+	import MiniPlayer from '../components/MiniPlayer';
 	import { request } from '../utils/request';
 	import { mapMutations } from 'vuex';
 

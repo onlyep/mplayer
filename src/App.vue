@@ -6,8 +6,7 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
-    <audio id="audio" autoplay :src="audio.source"
-           ref="audioRef"></audio>
+    <audio id="audio" autoplay :src="audio.source" ref="audioRef"></audio>
   </div>
 </template>
 
@@ -43,7 +42,7 @@
 			}),
 			audioInit() {
 				let _audio = this.$el.querySelector('#audio');
-				console.log(_audio);
+				console.log(_audio + '~~~~~~~');
 			},
 			getPlayList() {
 				request('get', '/recommend', { page: 1 }).then(res => {

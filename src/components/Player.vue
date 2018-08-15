@@ -5,7 +5,7 @@
     </div>
     <div class="cover-wrap active">
       <div class="cover-box">
-        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000002iLNys07scIu.jpg?max_age=2592000" alt="">
+        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000002iLNys07scIu.jpg?max_age=2592000">
       </div>
     </div>
     <div class="progress-wrap">

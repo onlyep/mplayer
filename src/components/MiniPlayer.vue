@@ -11,8 +11,8 @@
     </div>
     <div class="song-handler">
       <div class="handler-btn">
-        <i v-if="!audio.playing" class="icon-handle play"></i>
-        <i v-if="audio.playing" class="icon-handle pause"></i>
+        <i v-if="!audio.playing" @click.stop.prevent="play" class="icon-handle play"></i>
+        <i v-if="audio.playing" @click.stop.prevent="pause" class="icon-handle pause"></i>
       </div>
     </div>
   </div>
@@ -30,7 +30,8 @@
 		},
 		methods: {
 			...mapMutations({
-				play: 'play'
+				play: 'play',
+        pause: 'pause'
 			})
 		}
 	};

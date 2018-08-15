@@ -15,7 +15,6 @@ const state = {
 		coverUrl: ''
 	},
 	listJson: {},
-	playing: false,
 	currentAudio: '',
 	duration: 0,
 	percent: 0,
@@ -36,10 +35,10 @@ const mutations = {
 		state.audio.name = song.name;
 	},
 	play(state) {
-		state.playing = true;
+		state.audio.playing = true;
 	},
 	pause(state) {
-		state.playing = false;
+		state.audio.playing = false;
 	}
 };
 
