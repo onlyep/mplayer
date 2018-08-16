@@ -89,7 +89,7 @@
           display: block;
           width: 100%;
           height: 100%;
-          background-image: url(./audio-control.png);
+          background-image: url(../assets/audio-control.png);
           background-repeat: no-repeat;
         }
         .icon-handle.play {

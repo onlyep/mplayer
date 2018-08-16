@@ -17,64 +17,50 @@
       </div>
     </div>
     <transition name="fade">
-      <player v-show="isShowPlayer" @togglePlayer="togglePlayer" class="player"/>
+      <player v-show="isShowPlayer" :play-list="playList" class="player"/>
     </transition>
-    <mini-player v-show="!isShowPlayer" @click.native="togglePlayer" class="mini-player"/>
   </div>
 </template>
 
 <script>
 	// @ is an alias to /src
 	import Player from '../components/Player';
-	import MiniPlayer from '../components/MiniPlayer';
 	import { request } from '../utils/request';
-	import { mapMutations } from 'vuex';
 
 	export default {
 		name: 'home',
 		components: {
-			Player,
-			MiniPlayer
+			Player
 		},
 		data() {
 			return {
 				playList: [],
-				isShowPlayer: false
+				isShowPlayer: true
 			};
 		},
 		created() {
 			this.getPlayList();
 		},
 		methods: {
-			...mapMutations({
-				setAudioSource: 'setAudioSource'
-			}),
-			_play(song) {
-				let _song = song.sound;
-				this.setAudioSource(_song);
-			},
 			getPlayList() {
 				request('get', '/recommend', { page: 1 }).then(res => {
 					this.playList = res.data.slice();
 				});
-			},
-			togglePlayer() {
-				this.isShowPlayer = !this.isShowPlayer;
 			}
 		}
 	};
 </script>
 
 <style scoped lang="less">
-  .player {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #323232
-  }
+  /*.player {*/
+    /*display: block;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*background: #323232*/
+  /*}*/
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
